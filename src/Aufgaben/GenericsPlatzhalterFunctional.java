@@ -26,7 +26,7 @@ public class GenericsPlatzhalterFunctional {
 
 		p1.test(22); // muss kompilieren
 
-		Predicate< ?extends Number > p2;
+		Predicate<? extends Number> p2;
 
 		p2 = istPositiv; // muss kompilieren
 		p2 = istGerade; // muss kompilieren

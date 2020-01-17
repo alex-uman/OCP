@@ -23,7 +23,7 @@ abstract class Wesen implements KannBehandeltWerden {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 
@@ -61,7 +61,8 @@ class Arzt<T extends Wesen> extends Mensch {
 		super(name);
 	}
 
-	public void patient(T tier) {
+	public void heilen(T wesen) {
+		wesen.setGesund(true);
 	}
 }
 
@@ -109,28 +110,28 @@ public class GenericsZoo {
 		printZooBestand(zoo);
 
 		Arzt<Affe> arztAffenDoctor = new Arzt<>("Alfred AffenDoctor");
-
-		arztAffenDoctor.patient(affeEffa);
-		arztAffenDoctor.patient(new Affe(""));
-//		arztAffenDoctor.patient(zebraPaulchen);
-//		arztAffenDoctor.patient(new Zebra(""));
-//		arztAffenDoctor.patient(new Arzt(""));
+		arztAffenDoctor.heilen(affeEffa);
+		arztAffenDoctor.heilen(new Affe(""));
+//		arztAffenDoctor.heilen(zebraPaulchen);
+//		arztAffenDoctor.heilen(new Zebra(""));
+//		arztAffenDoctor.heilen(new Arzt(""));
 
 		Arzt<Tier> arztDolittle = new Arzt<>("Doctor Dolittle");
-
-		arztDolittle.patient(affeEffa);
-		arztDolittle.patient(new Affe(""));
-		arztDolittle.patient(zebraPaulchen);
-		arztDolittle.patient(new Zebra(""));
-//		arztDolittle.patient(arztAffenDoctor);
+		arztDolittle.heilen(affeEffa);
+		arztDolittle.heilen(new Affe(""));
+		arztDolittle.heilen(zebraPaulchen);
+		arztDolittle.heilen(new Zebra(""));
+//		arztDolittle.heilen(arztAffenDoctor);
 
 		Arzt<Wesen> arztAllgemein = new Arzt<>("Max Allgemein");
+		arztAllgemein.heilen(affeEffa);
+		arztAllgemein.heilen(new Affe(""));
+		arztAllgemein.heilen(zebraPaulchen);
+		arztAllgemein.heilen(new Zebra(""));
+		arztAllgemein.heilen(arztAffenDoctor);
 
-		arztAllgemein.patient(affeEffa);
-		arztAllgemein.patient(new Affe(""));
-		arztAllgemein.patient(zebraPaulchen);
-		arztAllgemein.patient(new Zebra(""));
-		arztAllgemein.patient(arztAffenDoctor);
+		System.out.println();
+		printZooBestand(zoo);
 
 	}
 
