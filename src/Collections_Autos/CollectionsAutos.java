@@ -32,6 +32,18 @@ abstract class Auto implements Comparable<Auto> {
 	}
 
 	@Override
+	public boolean equals(Object auto) {
+
+		if (auto == null || this.getClass() != auto.getClass())
+			return false;
+
+		Auto auto2 = (Auto) auto;
+
+		return this.getModel().equals(auto2.getModel()) && this.getBaujahr() == auto2.getBaujahr();
+
+	}
+
+	@Override
 	public int compareTo(Auto auto) {
 
 		int compare = this.getModel().compareTo(auto.getModel());
@@ -103,18 +115,10 @@ public class CollectionsAutos {
 		linkedListVW.add(vw1);
 		linkedListVW.add(vw2);
 		linkedListVW.add(vw3);
-		HashSet<Auto> hashSetVW = new HashSet<>();
-		hashSetVW.add(vw1);
-		hashSetVW.add(vw2);
-		hashSetVW.add(vw3);
-		TreeSet<Auto> treeSetVW = new TreeSet<>();
-		treeSetVW.add(vw1);
-		treeSetVW.add(vw2);
-		treeSetVW.add(vw3);
-		PriorityQueue<Auto> priorityQueueVW = new PriorityQueue<>();
-		priorityQueueVW.add(vw1);
-		priorityQueueVW.add(vw2);
-		priorityQueueVW.add(vw3);
+
+		HashSet<VW> hashSetVW = new HashSet(linkedListVW);
+		TreeSet<VW> treeSetVW = new TreeSet(linkedListVW);
+		PriorityQueue<VW> priorityQueueVW = new PriorityQueue(linkedListVW);
 
 		printList(linkedListVW);
 		printList(hashSetVW);
@@ -128,18 +132,22 @@ public class CollectionsAutos {
 		BMW bmw1 = new BMW("z4", 2000);
 		BMW bmw2 = new BMW("z4", 1998);
 
-		ArrayList<Auto> arrayListBMW = new ArrayList<>();
+		ArrayList<BMW> arrayListBMW = new ArrayList<>();
 		arrayListBMW.add(bmw1);
 		arrayListBMW.add(bmw2);
-		HashSet<Auto> hashSetBMW = new HashSet<>();
-		hashSetBMW.add(bmw1);
-		hashSetBMW.add(bmw2);
-		TreeSet<Auto> treeSetBMW = new TreeSet<>();
-		treeSetBMW.add(bmw1);
-		treeSetBMW.add(bmw2);
-		PriorityQueue<Auto> arrayDequeBMW = new PriorityQueue<>();
-		arrayDequeBMW.add(bmw1);
-		arrayDequeBMW.add(bmw2);
+
+		LinkedList<Auto> proxyList = new LinkedList<>();
+		for (Auto i : arrayListBMW)
+			proxyList.add(i);
+
+		HashSet<BMW> hashSetBMW = new HashSet(proxyList);
+		hashSetBMW.add(new BMW("z4", 2000));
+
+		TreeSet<BMW> treeSetBMW = new TreeSet(proxyList);
+		treeSetBMW.add(new BMW("z4", 2000));
+
+		PriorityQueue<Auto> arrayDequeBMW = new PriorityQueue(proxyList);
+		arrayDequeBMW.add(new BMW("z4", 2000));
 
 		printList(arrayListBMW);
 		printList(hashSetBMW);
@@ -203,10 +211,18 @@ public class CollectionsAutos {
 
 	}
 
-	static void printList(Collection<Auto> list) {
+	static void printList(Collection<? extends Auto> list) {
 
-		for (Auto i : list)
-			System.out.println(i);
+		int index = 1;
+
+		System.out.println();
+		System.out.println(list.getClass().getSimpleName());
+		System.out.println("----------------");
+		System.out.println();
+
+		for (Auto i : list) {
+			System.out.printf("%2d %s%n", index++, i);
+		}
 		System.out.println();
 	}
 }

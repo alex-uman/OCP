@@ -52,14 +52,14 @@ public class GenerischeMethodenFunctional {
 
 	}
 
-	static String count(List list, Predicate predicate) {
-		Integer count = 0;
+	static <T> int count(List<T> list, Predicate<T> predicate) {
+		int count = 0;
 
-		for (Object i : list)
+		for (T i : list)
 			if (predicate.test(i))
 				count++;
 
-		return count.toString();
+		return count;
 	}
 
 }
