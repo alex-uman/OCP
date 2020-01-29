@@ -1,10 +1,6 @@
 package Aufgaben;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class StreamCountMinMax {
@@ -19,7 +15,9 @@ public class StreamCountMinMax {
 
 		Locale[] locales = Locale.getAvailableLocales();
 
-		System.out.println(Stream.of(locales).map(x1 -> x1.getDisplayCountry()).max(Comparator.naturalOrder()));
+//		System.out.println(Stream.of(locales).map(x1 -> x1.getDisplayCountry()).max(Comparator.naturalOrder()));
+
+		System.out.println(Arrays.stream(locales).max(Comparator.comparing(Locale::getDisplayCountry)));
 
 		// ###### A2.
 
@@ -27,7 +25,7 @@ public class StreamCountMinMax {
 		System.out.println("###### A2.");
 		System.out.println();
 
-		System.out.println(Stream.of(locales).filter(f2 -> f2.getLanguage() == "de").count());
+		System.out.println(Stream.of(locales).filter(f2 -> f2.getLanguage().contentEquals("de")).count());
 
 		// ###### A3.
 
@@ -57,7 +55,7 @@ public class StreamCountMinMax {
 		System.out.println();
 
 		Optional<Locale> lc = Stream.of(locales).filter(f3 -> f3.getDisplayCountry().contains("t"))
-				.min((x3, y3) -> x3.getDisplayLanguage().compareTo(y3.getDisplayLanguage()));
+				.max((x3, y3) -> x3.getDisplayLanguage().compareTo(y3.getDisplayLanguage()));
 		System.out.println(lc.get().getDisplayCountry());
 		System.out.println(lc.get().getDisplayLanguage());
 

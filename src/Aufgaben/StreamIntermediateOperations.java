@@ -1,6 +1,5 @@
 package Aufgaben;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -130,12 +129,7 @@ public class StreamIntermediateOperations {
 		List<String> mailsIT = Arrays.asList("tom@mycompany.com", "mary@mycompany.com");
 		List<String> mailsQM = Arrays.asList("peter@mycompany.com", "jerry@mycompany.com");
 
-		List<String> newList = new ArrayList<String>();
-		newList.addAll(mailsErsthelfer);
-		newList.addAll(mailsIT);
-		newList.addAll(mailsQM);
-
-		Stream.of(newList.toArray(String[]::new)).distinct()
+		Stream.of(mailsErsthelfer, mailsIT, mailsQM).flatMap(List::stream).distinct()
 				.forEach(x6 -> System.out.println(x6.substring(0, x6.indexOf('@'))));
 
 	}
