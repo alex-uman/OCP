@@ -46,11 +46,15 @@ public class CollectorsPersonen {
 				new Person("Peter", "Metzger(in)"), new Person("Paul", "Bauarbeiter(in)"),
 				new Person("Mary", "Lehrer(in)"), };
 
+//		
+
 		TreeSet<Person> set = Arrays.stream(personen).collect(Collectors.toCollection(TreeSet::new));
 
 		set.forEach(System.out::println);
 
 		System.out.println();
+
+//		
 
 		Map<String, Person> map = Arrays.stream(personen).sorted().collect(Collectors.toMap(Person::getName, x -> x));
 
@@ -58,10 +62,29 @@ public class CollectorsPersonen {
 
 		System.out.println();
 
+//		
+
 		Collection<String> collection = Arrays.stream(personen)
-				.collect(Collectors.mapping(Person::getBeruf, Collectors.toCollection(HashSet::new)));
+				.collect(Collectors.mapping(Person::getBeruf, Collectors.toSet()));
 
 		collection.forEach(System.out::println);
+
+		System.out.println();
+
+//		
+
+		Map<String, List<Person>> group = Stream.of(personen).collect(Collectors.groupingBy(Person::getBeruf));
+
+		System.out.println(group);
+
+		System.out.println();
+
+//		
+
+		Map<Boolean, List<Person>> partition = Stream.of(personen)
+				.collect(Collectors.partitioningBy(x -> !x.getBeruf().equals("Bauarbeiter(in)")));
+
+		System.out.println(partition);
 
 	}
 
