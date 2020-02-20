@@ -11,7 +11,7 @@ public class IOCopyFile {
 
 	}
 
-	private static String normaliseFilename(String string) {
+	private static String normaliseTxtFilename(String string) {
 
 		if (string == null || string.isBlank())
 			return "";
@@ -30,8 +30,8 @@ public class IOCopyFile {
 
 	static void copyTextFile(String source, String target, boolean append) {
 
-		source = normaliseFilename(source);
-		target = normaliseFilename(target);
+		source = normaliseTxtFilename(source);
+		target = normaliseTxtFilename(target);
 
 		if (source.isEmpty() || target.isEmpty()) {
 
