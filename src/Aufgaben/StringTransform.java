@@ -1,7 +1,7 @@
 package Aufgaben;
 
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;;
+import java.util.function.UnaryOperator;
 
 public class StringTransform {
 
